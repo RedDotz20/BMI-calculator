@@ -1,50 +1,43 @@
-import "package:bmi_calculator/main.dart";
 import 'package:flutter/material.dart';
 
 class BMICalculator extends StatefulWidget {
   const BMICalculator({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _BMICalculatorState createState() => _BMICalculatorState();
 }
 
 class _BMICalculatorState extends State<BMICalculator> {
-
   Color myColor = Colors.transparent;
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   var mainResult = TextEditingController();
 
-  calculateBMI (String weight,String height) async{
+  calculateBMI(String weight, String height) async {
     var doubleWeight = double.parse(weight);
     var doubleHeight = double.parse(height);
 
-    var res = (doubleWeight/(doubleHeight*doubleHeight));
+    var res = (doubleWeight / (doubleHeight * doubleHeight));
 
     setState(() {
       mainResult.text = res.toStringAsFixed(2);
-      if(res<18.5){
+      if (res < 18.5) {
         myColor = const Color(0xFF87B1D9);
-      }
-      else if(res>=18.5 && res<=24.9){
+      } else if (res >= 18.5 && res <= 24.9) {
         myColor = const Color(0xFF3DD365);
-      }
-      else if(res>=25 && res<=29.9){
+      } else if (res >= 25 && res <= 29.9) {
         myColor = const Color(0xFFEEE133);
-      }
-      else if(res>=30 && res<=34.9){
+      } else if (res >= 30 && res <= 34.9) {
         myColor = const Color(0xFFFD802E);
-      }
-      else if(res>=35){
+      } else if (res >= 35) {
         myColor = const Color(0xFFF95353);
       }
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     // double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -55,12 +48,7 @@ class _BMICalculatorState extends State<BMICalculator> {
             height: height,
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF6DD5ED),
-                      Color(0xFF2193B0)
-                    ]
-                )
-            ),
+                    colors: [Color(0xFF6DD5ED), Color(0xFF2193B0)])),
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,33 +56,47 @@ class _BMICalculatorState extends State<BMICalculator> {
                   const SizedBox(
                     height: 100,
                   ),
-                  const Text("BMI Calculator",style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFF0038FF),fontSize: 25),),
+                  const Text(
+                    "BMI Calculator",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF0038FF),
+                        fontSize: 25),
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
-                  Padding(padding: const EdgeInsets.only(left: 15,right: 15,top: 10),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 15, right: 15, top: 10),
                     child: TextField(
                       controller: weightController,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      style: const TextStyle(fontSize: 18,color: Colors.black),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      style: const TextStyle(fontSize: 18, color: Colors.black),
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Enter your weight (kg)",
                       ),
-                    ),),
-                  Padding(padding: const EdgeInsets.only(left: 15,right: 15,top: 15),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 15, right: 15, top: 15),
                     child: TextField(
                       controller: heightController,
                       autofocus: false,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      style: const TextStyle(fontSize: 18,color: Colors.black),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      style: const TextStyle(fontSize: 18, color: Colors.black),
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Enter your height (m)",
                       ),
-                    ),),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 50),
                     child: Center(
@@ -102,18 +104,25 @@ class _BMICalculatorState extends State<BMICalculator> {
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: (){
-                            calculateBMI(weightController.text, heightController.text);
+                          onPressed: () {
+                            calculateBMI(
+                                weightController.text, heightController.text);
                           },
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(const Color(0xFF0038FF)),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color(0xFF0038FF)),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  )
-                              )
+                                borderRadius: BorderRadius.circular(15.0),
+                              ))),
+                          child: const Text(
+                            "Calculate",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
-                          child: const Text("Calculate",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.white),),
                         ),
                       ),
                     ),
@@ -127,105 +136,128 @@ class _BMICalculatorState extends State<BMICalculator> {
                       height: 100,
                       decoration: BoxDecoration(
                           color: myColor,
-                          borderRadius: const BorderRadius.all(Radius.circular(12))
-                      ),
-                      child: Center(child: Text("BMI: ${mainResult.text}",style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12))),
+                      child: Center(
+                          child: Text(
+                        "BMI: ${mainResult.text}",
+                        style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      )),
                     ),
                   ),
                   const SizedBox(
                     height: 80,
                   ),
-                  Center(child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF87B1D9),
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
-                                borderRadius: const BorderRadius.all(Radius.circular(12))
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFF87B1D9),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(12))),
                             ),
-                          ),
-                          const Text("Underweight",style: TextStyle(fontSize: 15),)
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF3DD365),
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
-                                borderRadius: const BorderRadius.all(Radius.circular(12))
+                            const Text(
+                              "Underweight",
+                              style: TextStyle(fontSize: 15),
+                            )
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFF3DD365),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(12))),
                             ),
-                          ),
-                          const Text("Normal",style: TextStyle(fontSize: 15),)
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFEEE133),
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
-                                borderRadius: const BorderRadius.all(Radius.circular(12))
+                            const Text(
+                              "Normal",
+                              style: TextStyle(fontSize: 15),
+                            )
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFFEEE133),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(12))),
                             ),
-                          ),
-                          const Text("Overweight",style: TextStyle(fontSize: 15),)
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFD802E),
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
-                                borderRadius: const BorderRadius.all(Radius.circular(12))
+                            const Text(
+                              "Overweight",
+                              style: TextStyle(fontSize: 15),
+                            )
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFFFD802E),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(12))),
                             ),
-                          ),
-                          const Text("obese",style: TextStyle(fontSize: 15),)
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFF95353),
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
-                                borderRadius: const BorderRadius.all(Radius.circular(12))
+                            const Text(
+                              "obese",
+                              style: TextStyle(fontSize: 15),
+                            )
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFFF95353),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(12))),
                             ),
-                          ),
-                          const Text("Extreme",style: TextStyle(fontSize: 15),)
-                        ],
-                      )
-                    ],
-                  ),)
-
+                            const Text(
+                              "Extreme",
+                              style: TextStyle(fontSize: 15),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
